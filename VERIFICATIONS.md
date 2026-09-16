@@ -1,6 +1,8 @@
 # Vérifications effectuées le 16 septembre 2026
 
 - Tests automatisés réussis : durée totale 210 minutes et fin à 17 h 30 ; mot déclencheur en début, milieu et fin de commande ; refus des expressions ambiguës ; chronomètres en marche et en pause ; rejet de médias externes et horaires invalides.
+- Serveur : fichiers de secrets et code serveur non exposés, refus des origines étrangères, API désactivée sans clé.
+- Publication GitHub Pages : workflow réussi et application publique ouverte dans le navigateur (HTTP 200).
 - Syntaxe JavaScript vérifiée pour l’application, la voix et le serveur.
 - Essais dans le navigateur intégré Chromium : navigation, chronomètre, jeu et révélation, édition conservée après rechargement, import d’une page PDF rendue correctement, annulation, import d’une sauvegarde complète et reprise en pause.
 - Deux onglets : la projection reçoit la même slide que le pupitre ; les notes ne sont pas dans l’écran public.
