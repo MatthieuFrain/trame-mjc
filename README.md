@@ -38,7 +38,7 @@ Pour activer l’API : copier `.env.example` en `.env`, renseigner la clé dans 
 
 Sur GitHub Pages, un serveur HTTPS séparé est nécessaire : indiquer son adresse dans les réglages de voix. Configurer `HOST`, `ACCESS_TOKEN` et `ALLOWED_ORIGIN`. Le code d’accès reste en mémoire du navigateur. Prévoir un hébergeur et sa propre limite de dépenses ; aucun serveur payant n’est créé par ce projet.
 
-Mode IA : appuyer pour parler puis appuyer pour terminer, 20 secondes maximum par prise ; ou écrire une question. La slide et ses notes servent de contexte. Session fermée après dix minutes et limitée à 30 demandes côté client ; quatre ouvertures par heure par défaut côté serveur. Ces limites réduisent les débordements mais ne constituent pas un plafond financier inviolable. Régler également la facturation et surveiller les consommations chez le fournisseur. Pas d’enregistrement intégral de l’après-midi ni de déclenchement libre par mot-clé dans ce mode. Ces choix évitent l’écoute continue de mineurs et les activations accidentelles.
+Mode IA : appuyer pour parler puis appuyer pour terminer, 20 secondes maximum par prise ; ou écrire une question. La slide et ses notes servent de contexte. Session fermée après dix minutes et limitée à 30 demandes côté client ; quatre ouvertures par heure par défaut côté serveur. Ces limites réduisent les débordements mais ne constituent pas un plafond financier inviolable. Régler également la facturation et surveiller les consommations chez le fournisseur. Pas d’enregistrement intégral de l’après-midi. Les commandes vocales du navigateur peuvent aussi déclencher une question avec « Trame » si l’API est connectée. Une option explicite inclut au plus les deux dernières minutes de paroles, uniquement en mémoire ; elle est désactivée par défaut. L’écoute s’arrête pendant la réponse et se réactive volontairement. Ces choix évitent l’écoute continue de mineurs et les activations accidentelles.
 
 ## Technique et vérifications
 
@@ -51,7 +51,7 @@ Le cours et la navigation sont prévus pour les navigateurs récents sur Mac, Wi
 - Cours réécrit à partir des cinq PDF fournis par Matthieu Frain ; visuel navy/violet/rose conservé, dispositif ancien remplacé par MJC.
 - Terre : NASA / Johnson Space Center, Apollo 17, 7 décembre 1972, https://svs.gsfc.nasa.gov/30613 . Une photo vraie ne prouve pas sa légende.
 - Plat IA : image extraite du jeu PDF fourni, dont le corrigé attribue la création à Gemini ; provenance déclarée dans ce support, non déduite de l’apparence.
-- Verlaine : quatre vers de « Chanson d’automne », domaine public. Les autres textes fictifs sont explicitement présentés comme exercices préparés.
+- Verlaine : quatre vers de « Il pleure dans mon cœur » (Romances sans paroles), domaine public. Les autres textes fictifs sont explicitement présentés comme exercices préparés.
 - Motif audio : synthèse sinusoïdale déterministe, sans modèle d’IA. Animation : formes géométriques calculées, sans modèle d’IA. « Numérique » et « IA » ne sont pas synonymes.
 - PDF.js : Mozilla, licence Apache 2.0 incluse dans `dist/vendor/PDFJS-LICENSE`.
 - API : https://developers.openai.com/api/docs/guides/voice-webrtc et https://developers.openai.com/api/docs/guides/realtime-conversations . Documentation consultée le 16 septembre 2026.
