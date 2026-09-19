@@ -1,15 +1,26 @@
-# Vérifications effectuées le 16 septembre 2026
+# Vérifications de la version 2
 
-- Tests automatisés réussis : durée totale 210 minutes et fin à 17 h 30 ; mot déclencheur en début, milieu et fin de commande ; refus des expressions ambiguës ; chronomètres en marche et en pause ; rejet de médias externes et horaires invalides.
-- Serveur : fichiers de secrets et code serveur non exposés, refus des origines étrangères, API désactivée sans clé.
-- Publication GitHub Pages : workflow réussi et application publique ouverte dans le navigateur (HTTP 200).
-- Syntaxe JavaScript vérifiée pour l’application, la voix et le serveur.
-- Essais dans le navigateur intégré Chromium : navigation, chronomètre, jeu et révélation, édition conservée après rechargement, import d’une page PDF rendue correctement, annulation, import d’une sauvegarde complète et reprise en pause.
-- Deux onglets : la projection reçoit la même slide que le pupitre ; les notes ne sont pas dans l’écran public.
-- Hors ligne : serveur local arrêté, rechargement réussi et navigation dans le cours et les supports disponibles.
-- Revue visuelle du pupitre à 1440 px et sur écran étroit ; aucune collision des contenus avec les pieds de slide sur les 38 slides par contrôle DOM.
-- PDF de secours : 38 pages de slides, 8 pages de supports et 16 pages de trame, rendues et inspectées visuellement.
+## Effectuées le 19 septembre 2026
 
-## Limites des essais
+- Validation des 38 slides natives, de leurs guides et des médias ; total du déroulé : 210 minutes.
+- Tests du modèle : temps cumulé, pause, variantes du mot-clé, position libre du mot-clé, import invalide et contenu dangereux rejetés, modifications ciblées et fusion des notes.
+- Tests HTTP avec deux clients distincts et base temporaire : initialisation, deux modifications simultanées, conservation des deux retouches, rejeu idempotent, pupitre unique et reprise de contrôle.
+- Fichiers importés accessibles après redémarrage du serveur ; données du cours conservées.
+- Route de voix refusée proprement sans clé ; requêtes d’origine étrangère rejetées.
+- Projection : paquets anciens ignorés, doublons non rendus deux fois, confirmations adressées au bon pupitre.
+- Navigateur : changement de slide confirmé dans le pupitre et la projection ; modification directe d’un texte reçue par la projection.
+- Navigateur : aperçu et import d’une page PDF, ajout au cours puis projection ; média enregistré sur le serveur.
+- Coupure réelle du serveur de test : retouche enregistrée hors ligne, fermeture et réouverture de l’onglet, retouche retrouvée puis synchronisée après redémarrage.
+- Mise en page contrôlée à 1366 × 768 et 390 × 844. Aucun débordement horizontal mobile constaté. Aucun bloc de texte natif ne dépasse de son cadre dans la vue de l’ensemble des slides.
+- PDF de secours régénérés à partir du contenu actuel et vérifiés visuellement : 38 slides, 8 pages de supports, 16 pages de trame. Fiche pédagogique de 6 pages disponible séparément.
+- Audit des dépendances de production : aucun avis de vulnérabilité signalé au contrôle. Les outils de migration restent des dépendances de développement.
 
-Les tests de navigateur automatisés par lancement d’un Chrome externe n’ont pas pu démarrer dans cet environnement ; les vérifications d’interface ont été réalisées avec le navigateur intégré. Pas de validation physique sur Windows, sur le MacBook Pro de l’animateur, avec le Blue Yeti, l’enceinte ou le vidéoprojecteur de la MJC. La connexion OpenAI Realtime est préparée mais non essayée avec un compte facturé. La reconnaissance vocale et la qualité de synthèse doivent être testées sur la machine finale. La publication GitHub Pages est vérifiée séparément après déploiement.
+## À vérifier avec Matthieu sur le matériel réel
+
+- MacBook Pro et/ou Windows, adaptateur, câble et vidéoprojecteur de la MJC : écran étendu et plein écran.
+- Blue Yeti, acoustique, volume de l’enceinte et reconnaissance vocale dans le bruit.
+- Autorisations micro/audio et comportement d’écoute prolongée du navigateur choisi.
+- Connexion vocale OpenAI et rendu de la voix `marin` après activation volontaire d’un accès API. Aucune requête payante réelle n’a été effectuée.
+- Répétition complète et lisibilité depuis le fond de la salle.
+
+Les tests de deux clients et fenêtres valident les échanges logiciels ; ils ne constituent pas un essai matériel sur deux ordinateurs physiques ni une garantie d’absence de panne.

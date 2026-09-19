@@ -1,7 +1,7 @@
 name: Vérifier et publier Trame
 on:
   push:
-    branches: [main]
+    branches: [trame-mjc]
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,11 +20,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - run: npm test && npm run check
+          node-version: "22"
+      - run: npm ci && npm test && npm run check && npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
       - uses: actions/deploy-pages@v4
         id: deployment
