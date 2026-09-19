@@ -4,7 +4,7 @@ Atelier « L’IA, à vous de jouer » pour environ dix collégiens et lycéens,
 
 ## Utilisation
 
-- **Espace privé** : https://trame-mjc-atelier.dusky-lily-8551.chatgpt.site — même compte propriétaire sur chaque appareil ; cours, médias, réglages et progression partagés.
+- **Espace privé** : https://trame-mjc-atelier.matthieufrain.chatgpt.site — même compte propriétaire sur chaque appareil ; cours, médias, réglages et progression partagés.
 - **Secours GitHub Pages** : https://matthieufrain.github.io/trame-mjc/ — fonctionne sans serveur partagé ; les onglets du même navigateur se synchronisent, les autres machines ont une copie indépendante. Exporter/importer une sauvegarde pour changer de machine dans ce mode.
 - **Branche de travail demandée** : `trame-mjc`. La publication GitHub Pages est déclenchée par cette branche. `main` n’est pas modifiée.
 

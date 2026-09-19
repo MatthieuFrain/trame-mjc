@@ -31,6 +31,7 @@ export class WorkshopStore extends EventTarget {
     this.flushing = false;
   }
   async init() {
+    this.cloud = !!(await read("v2-server"));
     if (!this.readonly) {
       if (navigator.locks)
         await new Promise((resolve) => {
@@ -166,9 +167,15 @@ export class WorkshopStore extends EventTarget {
     const op = { ...operation, id: uid(), client: this.client, at: Date.now() };
     // Valider et enregistrer avant d’annoncer une retouche durable.
     applyOperation(this.document, op);
-    await write("v2-op:" + op.id, op);
     this.pending.push(op);
     this.rebuild();
+    try {
+      await write("v2-op:" + op.id, op);
+    } catch (error) {
+      this.pending = this.pending.filter((x) => x.id !== op.id);
+      this.rebuild();
+      throw error;
+    }
     this.seen.add(op.id);
     this.status = this.cloud ? "saving" : "local";
     this.channel.postMessage({ type: "operation", op });
@@ -187,12 +194,25 @@ export class WorkshopStore extends EventTarget {
     const accepted = new Set(data.accepted || []);
     this.base = validateDocument(data.document);
     this.revision = data.revision;
-    this.remote = this.remote.filter((op) => !accepted.has(op.id));
+    this.remote = this.remote.filter(
+      (op) =>
+        !accepted.has(op.id) &&
+        !(
+          op.kind === "session" &&
+          data.controller &&
+          op.client !== data.controller
+        ),
+    );
     this.rebuild();
   }
   receive(message) {
     if (!message || typeof message !== "object") return;
     try {
+      if (message.type === "rejected") {
+        this.remote = this.remote.filter((op) => op.id !== message.id);
+        this.rebuild();
+        this.emit();
+      }
       if (message.type === "hello" && !this.readonly)
         this.channel.postMessage({
           type: "snapshot",
@@ -210,6 +230,7 @@ export class WorkshopStore extends EventTarget {
       }
       if (
         message.type === "snapshot" &&
+        !this.cloud &&
         message.revision >= this.revision &&
         this.readonly
       ) {
@@ -291,6 +312,7 @@ export class WorkshopStore extends EventTarget {
           if (answer.conflict === "controller") {
             this.pending = this.pending.filter((x) => x.id !== op.id);
             await remove("v2-op:" + op.id);
+            this.channel.postMessage({ type: "rejected", id: op.id });
             this.isController = false;
             this.rebuild();
             this.dispatchEvent(

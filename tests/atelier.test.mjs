@@ -290,3 +290,38 @@ test("Les notes et supports se fusionnent par champ", () => {
   assert.equal(d.course.memo[0].title, "Demander");
   assert.ok(d.course.memo[0].text.length > 10);
 });
+test("Un aperçu distant rejeté ne reste pas superposé à l’état confirmé", async () => {
+  const { WorkshopStore } = await import("../src/client/core/sync.js");
+  const store = new WorkshopStore(structuredClone(defaultCourse), {
+    readonly: true,
+  });
+  store.cloud = true;
+  try {
+    store.remote = [
+      { id: "stale", kind: "session", client: "old", patch: { slideId: "s3" } },
+      {
+        id: "edit",
+        kind: "element",
+        slideId: "s1",
+        elementId: "s1-e0",
+        patch: { text: "En cours" },
+      },
+    ];
+    store.adopt({
+      document: initial(),
+      revision: 1,
+      controller: "new",
+      accepted: [],
+    });
+    assert.equal(store.document.session.slideId, "s1");
+    assert.equal(store.document.course.slides[0].elements[0].text, "En cours");
+    store.receive({ type: "rejected", id: "edit" });
+    assert.equal(store.remote.length, 0);
+    assert.notEqual(
+      store.document.course.slides[0].elements[0].text,
+      "En cours",
+    );
+  } finally {
+    store.close();
+  }
+});

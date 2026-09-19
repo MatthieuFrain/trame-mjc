@@ -262,7 +262,7 @@ export class VoiceAssistant extends EventTarget {
       this.listening = false;
       if (this.wanted && !this.speaking)
         this.restartTimer = setTimeout(() => this.restartRecognition(), 700);
-      else this.update(undefined, "Micro coupé");
+      else if (!this.speaking) this.update(undefined, "Micro coupé");
     };
     try {
       rec.start();
