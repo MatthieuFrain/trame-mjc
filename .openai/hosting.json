@@ -1,1 +1,5 @@
-{"project_id":"appgprj_6aae81428e5c81918cc0af81830eab00","d1":{"binding":"DB"},"r2":{"binding":"MEDIA"}}
+{
+  "project_id": "appgprj_6aae81428e5c81918cc0af81830eab00",
+  "d1": "DB",
+  "r2": "MEDIA"
+}
